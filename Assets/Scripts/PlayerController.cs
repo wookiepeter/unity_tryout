@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-
+    public LayerMask ground;
     public float maxSpeed = 200f;
     public float moveForce = 80f;
 
@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
     public float jumpForce = 600f;
 
     Rigidbody2D rb2d;
+    
 
 	// Use this for initialization
 	void Start () {
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        grounded = Physics2D.Linecast(rb2d.position, Vector2.down * 0.52f);
+        grounded = Physics2D.Linecast(rb2d.position, rb2d.position + Vector2.down * GetComponent<SpriteRenderer>().sprite.bounds.size.y * 0.51f, ground);
         Debug.DrawRay(rb2d.position, Vector2.down * 0.52f);
 
         if (grounded && Input.GetButtonDown("Jump"))
